@@ -18,6 +18,10 @@ resource "aws_internet_gateway" "demo-vpc-igw" {
 # depends_on = [
 #     aws_vpc.demo-vpc
 #   ]
+  
+    tags = {
+    Name = "demo-vpc-igw"
+  }
 }
 
 # RDS-MySQL public subnets in different AZs
