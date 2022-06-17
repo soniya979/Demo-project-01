@@ -24,6 +24,8 @@ resource "aws_internet_gateway" "demo-vpc-igw" {
   }
 }
 
+# ================= RDS-MySQL Subnets ============
+
 # RDS-MySQL public subnets in different AZs
 
 resource "aws_subnet" "rds-db-pub-subnet01" {
@@ -47,6 +49,40 @@ tags = {
     Name = "rds-db-pub-subnet02"
   }
 }
+
+#create public route tabel
+
+resource "aws_route_table" "rdsdb-pubrt01" {
+  vpc_id = aws_vpc.demo-vpc.id
+
+  tags = {
+    Name = "rdsdb-pubrt01"
+  }
+}
+
+# Associate public subnets to public route tabel
+
+resource "aws_route_table_association" "rdsdb-pubrtasso01" {
+  subnet_id      = aws_subnet.rds-db-pub-subnet01.id
+  route_table_id = aws_route_table.rdsdb-pubrt01.id
+}
+
+resource "aws_route_table_association" "rdsdb-pubrtasso02" {
+  subnet_id      = aws_subnet.rds-db-pub-subnet02.id
+  route_table_id = aws_route_table.rdsdb-pubrt01.id
+}
+
+#  route for interney gateway
+
+resource "aws_route" "rdsdb-publicsnroute01" {
+  route_table_id = aws_route_table.rdsdb-pubrt01.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id  = aws_internet_gateway.demo-vpc-igw.id
+}
+
+
+
+#   =========== Redshift cluster ==================================
 
 #create redshift cluster subnets in different AZs
 
@@ -79,6 +115,8 @@ resource "aws_subnet" "redshift-pub-subnet02" {
 #     aws_vpc.demo-vpc
 #   ]
 }
+
+# ============== EMR -Cluster Subnet ====================================
 
 # EMR-Cluster Public subnet
 
