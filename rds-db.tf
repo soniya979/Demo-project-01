@@ -1,4 +1,4 @@
-create RDS-MSQL
+# create RDS-MSQL
 
 resource "aws_db_instance" "demordss3db" {
 identifier = "demordss3db"
