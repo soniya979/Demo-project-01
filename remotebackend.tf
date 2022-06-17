@@ -63,3 +63,17 @@ tags = {
 
     }
 }
+
+#configure terraform backend
+
+terraform {
+
+  backend "s3" {
+
+    bucket = "remote02-s3-backend"
+    key    = "project/terraform.tfstate"
+    region = "eu-west-2"
+    dynamodb_table = "remote02-s3-backend-db-table-01"
+
+  }
+}
