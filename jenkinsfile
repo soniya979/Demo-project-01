@@ -1,0 +1,37 @@
+pipeline {
+  agent any
+  
+  stages {
+    stage('SCM') {
+        steps {
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/soniya979/Demo-Project.git']]])
+
+            }
+        }
+
+     stage('init') {
+         steps {
+             // sh 'terraform init --force-copy'
+             // sh 'terraform init --migrate-state'
+                sh 'terraform init'
+             
+                }
+            }
+            
+            stage('plan') {
+                steps {
+
+                    sh 'terraform plan'
+                }
+            }
+
+             stage('action') {
+                steps {
+                    echo "Terraform action is -->${action}"
+
+                    sh 'terraform ${action} --auto-approve'
+                }
+            }
+
+            }
+        }
