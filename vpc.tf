@@ -53,7 +53,7 @@ resource "aws_subnet" "redshift-pub-subnet01" {
   map_public_ip_on_launch = "true"
   
   tags = {
-    Name = "redshift-pub-subnet-1"
+    Name = "redshift-pub-subnet01"
   }
 
 # depends_on = [
@@ -68,7 +68,7 @@ resource "aws_subnet" "redshift-pub-subnet02" {
   map_public_ip_on_launch = "true"
   
   tags = {
-    Name = "redshift-pub-subnet-2"
+    Name = "redshift-pub-subnet02"
   }
 
 # depends_on = [
@@ -85,7 +85,7 @@ resource "aws_subnet" "emr-pub-subnet01" {
   availability_zone = "eu-west-2a"
 
   tags = {
-    name = "emr-pub-subnet01"
+    Name = "emr-pub-subnet01"
   }
 }
 
