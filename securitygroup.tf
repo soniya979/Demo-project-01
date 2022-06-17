@@ -105,7 +105,7 @@ resource "aws_security_group" "emr-sg01" {
     cidr_blocks = ["0.0.0.0/0"]
   }
    tags = {
-    name = "emr-sg01"
+    Name = "emr-sg01"
   }
 
   depends_on = [aws_subnet.emr-pub-subnet01]
