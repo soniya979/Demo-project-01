@@ -14,7 +14,7 @@ parameter_group_name = "default.mysql8.0"
 publicly_accessible = true
 skip_final_snapshot  = true
 db_subnet_group_name = aws_db_subnet_group.rds-db-subnet-group.id
-availablty_zone = "eu-west-2a"
+availability_zone  = "eu-west-2a"
 deletion_protection = true
 vpc_security_group_ids = [aws_security_group.demo-rds-sg02.id]
 
