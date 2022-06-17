@@ -59,7 +59,7 @@ attribute {
 
 tags = {
 
-    Name = "Terraform State Lock DBTable"
+    Name = "Terraform State Lock DBTable02"
 
     }
 }
