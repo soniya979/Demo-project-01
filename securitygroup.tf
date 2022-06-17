@@ -88,7 +88,7 @@ tags = {
 
 resource "aws_security_group" "emr-sg01" {
   name        = "emr-sg01"
-  description = "Allow inbound traffic"
+  description = "Allow inbound traffic-EMR"
   vpc_id      = aws_vpc.demo-vpc.id
 
   ingress {
@@ -104,6 +104,9 @@ resource "aws_security_group" "emr-sg01" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+   tags = {
+    name = "emr-sg01"
+  }
 
   depends_on = [aws_subnet.emr-pub-subnet01]
 
@@ -114,7 +117,4 @@ resource "aws_security_group" "emr-sg01" {
     ]
   }
 
-  tags = {
-    name = "emr-sg01"
-  }
 }
