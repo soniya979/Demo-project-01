@@ -5,9 +5,9 @@ resource "aws_security_group" "demo-rds-sg01" {
     vpc_id =  aws_vpc.demo-vpc.id
 
     ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
+        from_port = 0
+        to_port = 0
+        protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
     }
 
@@ -37,6 +37,7 @@ resource "aws_security_group" "demo-rds-sg02" {
     to_port         = 3306
     protocol        = "tcp"
     security_groups = [aws_security_group.demo-rds-sg01.id]
+#     cidr_blocks = ["0.0.0.0/0"]
   }
   
   # Allow all outbound traffic.
