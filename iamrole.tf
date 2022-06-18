@@ -72,3 +72,5 @@ resource "aws_iam_role_policy_attachment" "rds-service-role-attachment01" {
   role       = aws_iam_role.s3-crawler-role01.name
   policy_arn = data.aws_iam_policy.AmazonRDSFullAccess.arn
 }
+
+
