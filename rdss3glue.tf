@@ -46,7 +46,7 @@ resource "aws_glue_job" "rds-s3-raw-data-glue-job" {
 
   command {
 #     script_location = "s3://${aws_s3_bucket.example.bucket}/example.py"
-    script_location = "s3://aws_s3_bucket.project01-data-bucket.bucket/scripts/rdss3gluerawdata.py"
+    script_location = "s3://project01-data-bucket/scripts/rdss3gluerawdata.py"
   }
 }
 
