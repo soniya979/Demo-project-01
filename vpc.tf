@@ -89,7 +89,7 @@ resource "aws_vpc_endpoint" "rdsglues3ep" {
 #   security_group_ids = [aws_security_group.demo-rds-sg01.id, aws_security_group.demo-rds-sg02.id]  # when type= interface
   
   tags = {
-    Environment = "rdsglues3ep"
+    Name = "rdsglues3ep"
   }
   
 }
