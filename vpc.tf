@@ -80,7 +80,29 @@ resource "aws_route" "rdsdb-publicsnroute01" {
   gateway_id  = aws_internet_gateway.demo-vpc-igw.id
 }
 
+# add vpc s3 endpoint 
 
+resource "aws_vpc_endpoint" "rdsglues3ep" {
+  vpc_id            = aws_vpc.demo-vpc.id
+  service_name      = "com.amazonaws.eu-west-2.s3"
+
+  security_group_ids = [aws_security_group.demo-rds-sg01.id, aws_security_group.demo-rds-sg02.id]
+  
+  tags = {
+    Environment = "rdsglues3ep"
+  }
+  
+}
+
+resource "aws_vpc_endpoint_route_table_association" "rds-rt-vpcs3ep" {
+  route_table_id  = aws_route_table.rdsdb-pubrt01.id
+  vpc_endpoint_id = aws_vpc_endpoint.rdsglues3ep.id
+}
+
+# resource "aws_vpc_endpoint_subnet_association" "sn-rds" {
+#   vpc_endpoint_id = aws_vpc_endpoint.rdsglues3.id
+#   subnet_id       = [aws_subnet.rdsdb-pubrtasso01.id, aws_subnet.rdsdb-pubrtasso02.id]
+# }
 
 #   =========== Redshift cluster ==================================
 
