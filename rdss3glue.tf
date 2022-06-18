@@ -1,3 +1,5 @@
+#create connection 
+
 resource "aws_glue_connection" "rds-glue-connection01" {
   connection_properties = {
     JDBC_CONNECTION_URL = "jdbc:mysql://demordss3db.cbew7knnwrbv.eu-west-2.rds.amazonaws.com:3306/rdsdb01"
@@ -17,7 +19,6 @@ resource "aws_glue_connection" "rds-glue-connection01" {
 
 #create glue_calalog_database
 
-
 resource "aws_glue_catalog_database" "rdss3-rawdata-catalog01" {
   name = "rdss3-rawdata-catalog01"
 }
@@ -35,4 +36,28 @@ resource "aws_glue_crawler" "rds-s3-glue-crawler01" {
     connection_name = aws_glue_connection.rds-glue-connection01.name
     path            = "rdsdb01/%"
  }
+}
+
+#create rds-s3-rawdata-job
+
+resource "aws_glue_job" "rds-s3-raw-data-glue-job" {
+  name     = "rds-s3-raw-data-glue-job"
+  role_arn = aws_iam_role.s3-crawler-role01.arn
+
+  command {
+#     script_location = "s3://${aws_s3_bucket.example.bucket}/example.py"
+    script_location = "s3://aws_s3_bucket.project01-data-bucket.bucket/scripts/rdss3gluerawdata.py"
+  }
+}
+
+# create job schedule
+
+resource "aws_glue_trigger" "rds-s3-raw-data-job-schedule" {
+  name     = "rds-s3-raw-data-job-schedule"
+  schedule = "cron(2 * * * ? *)"
+  type     = "SCHEDULED"
+
+  actions {
+    job_name = aws_glue_job.rds-s3-raw-data-glue-job.name
+  }
 }
