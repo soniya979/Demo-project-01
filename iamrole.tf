@@ -31,7 +31,7 @@ resource "aws_iam_role_policy_attachment" "glue-service-role-attachment01" {
 
 #for s3 access
 
-data "aws_iam_policy_document" s3-assume-role-policy01" {
+data "aws_iam_policy_document" "s3-assume-role-policy01" {
   statement {
     actions = ["sts:AssumeRole"]
 
