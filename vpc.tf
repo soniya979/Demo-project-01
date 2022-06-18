@@ -86,7 +86,7 @@ resource "aws_vpc_endpoint" "rdsglues3ep" {
   vpc_id            = aws_vpc.demo-vpc.id
   service_name      = "com.amazonaws.eu-west-2.s3"
 
-  security_group_ids = [aws_security_group.demo-rds-sg01.id, aws_security_group.demo-rds-sg02.id]
+#   security_group_ids = [aws_security_group.demo-rds-sg01.id, aws_security_group.demo-rds-sg02.id]  # when type= interface
   
   tags = {
     Environment = "rdsglues3ep"
