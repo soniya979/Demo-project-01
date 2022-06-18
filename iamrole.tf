@@ -51,4 +51,24 @@ resource "aws_iam_role_policy_attachment" "s3-service-role-attachment01" {
   policy_arn = data.aws_iam_policy.AmazonS3FullAccess.arn
 }
 
+#For RDSFullAccess
 
+data "aws_iam_policy_document" "rds-assume-role-policy01" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["rds.amazonaws.com"]
+    }
+  }
+}
+
+data "aws_iam_policy" "AmazonRDSFullAccess" {
+  arn = "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "rds-service-role-attachment01" {
+  role       = aws_iam_role.s3-crawler-role01.name
+  policy_arn = data.aws_iam_policy.AmazonRDSFullAccess.arn
+}
