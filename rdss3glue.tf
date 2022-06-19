@@ -72,7 +72,7 @@ resource "aws_glue_crawler" "s3-raw-glue-crawler01" {
  #table_prefix =  "raw_data_catalog_tb"
 
    s3_target {
-    path = "s3://project01-data-bucket/rds-raw-data"
+    path = "s3://project01-data-bucket/rds-raw-data/"
     connection_name = aws_glue_connection.s3-glue-connection01.name
   }
 }
