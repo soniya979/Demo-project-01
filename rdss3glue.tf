@@ -86,7 +86,7 @@ resource "aws_glue_job" "rds-s3-raw-data-glue-job" {
 
   command {
 #     script_location = "s3://${aws_s3_bucket.example.bucket}/example.py"
-    script_location = "s3://project01-data-bucket/scripts/rdss3gluerawdata.py"
+    script_location = "s3://project01-data-bucket/scripts/rdss3data.py"
   }
 }
 
@@ -94,8 +94,9 @@ resource "aws_glue_job" "rds-s3-raw-data-glue-job" {
 
 resource "aws_glue_trigger" "rds-s3-raw-data-job-schedule" {
   name     = "rds-s3-raw-data-job-schedule"
-  schedule = "cron(2 * * * ? *)"
-  type     = "SCHEDULED"
+#   schedule = "cron(/2 * * * ? *)"
+#   type     = "SCHEDULED"
+    type = "ON_DEMAND"
 
   actions {
     job_name = aws_glue_job.rds-s3-raw-data-glue-job.name
