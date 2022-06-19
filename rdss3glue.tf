@@ -106,7 +106,7 @@ resource "aws_glue_trigger" "rds-s3-raw-data-job-schedule" {
 #to import job
 
 resource "aws_glue_job" "my_job_resource" {
-    name     = "my-glue-job"
+    name     = "testjob"
     role_arn = aws_iam_role.s3-crawler-role01.arn
     command {
         name            = "glueetl"
