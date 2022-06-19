@@ -73,4 +73,47 @@ resource "aws_iam_role_policy_attachment" "rds-service-role-attachment01" {
   policy_arn = data.aws_iam_policy.AmazonRDSFullAccess.arn
 }
 
+# Redshit -IAM role
 
+
+#create redshift-customize role with s3 readonly access permission.
+
+resource "aws_iam_role_policy" "s3-full-access-policy" {
+  name = "redshift-s3-policy"
+  role = aws_iam_role.demo-redshift-role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+        {
+            Effect = "Allow"
+            Action = ["s3:*"]
+            Resource = "*"
+        },
+]
+})
+
+}
+
+
+resource "aws_iam_role" "demo-redshift_role" {
+  name = "demo-redshift_role"
+ 
+assume_role_policy = jsonencode({
+
+  Version = "2012-10-17"
+  Statement = [ 
+    {
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Sid = ""
+      Principal = {
+      Service = "redshift.amazonaws.com"
+      }      
+    },
+  ]
+})
+
+tags = {
+    tag-key = "demo-redshift-role"
+  }
+}
