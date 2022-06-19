@@ -18,6 +18,6 @@ depends_on = [
     aws_vpc.demo-vpc,
     aws_security_group.redshift-sg01,
     aws_redshift_subnet_group.redshift-subnet-group,
-    aws_iam_role.demo-redshift_role
+    aws_iam_role.demo-redshift-role
   ]
 }
