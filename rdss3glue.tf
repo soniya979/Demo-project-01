@@ -1,4 +1,4 @@
-#create connection 
+#create connection #1 RDS-glue
 
 resource "aws_glue_connection" "rds-glue-connection01" {
   connection_properties = {
@@ -17,18 +17,18 @@ resource "aws_glue_connection" "rds-glue-connection01" {
 }
 
 
-#create glue_calalog_database
+#create rds_glue_calalog_database
 
 resource "aws_glue_catalog_database" "rdss3-rawdata-catalog01" {
   name = "rdss3-rawdata-catalog01"
 }
 
-#create glue_crawler
+#create glue_crawler RDS
 
 resource "aws_glue_crawler" "rds-s3-glue-crawler01" {
   database_name = aws_glue_catalog_database.rdss3-rawdata-catalog01.name
   name          = "rds-s3-glue-crawler01"
-  schedule      = "cron(/5 * * * ? *)"
+  schedule      = "cron(/2 * * * ? *)"
   role          =  aws_iam_role.s3-crawler-role01.arn
  #table_prefix =  "raw_data_catalog_tb"
 
@@ -36,6 +36,45 @@ resource "aws_glue_crawler" "rds-s3-glue-crawler01" {
     connection_name = aws_glue_connection.rds-glue-connection01.name
     path            = "rdsdb01/%"
  }
+}
+
+
+# ====================================
+
+#2- s3 connection
+
+resource "aws_glue_connection" "s3-glue-connection01" {
+  connection_type = "NETWORK"
+
+  name = "s3-glue-connection01"
+
+  physical_connection_requirements {
+    availability_zone      = "eu-west-2a"
+    security_group_id_list = [aws_security_group.demo-rds-sg02.id, aws_security_group.demo-rds-sg01.id]
+    subnet_id              = aws_subnet.rds-db-pub-subnet01.id
+  }
+}
+
+#create s3_glue_calalog_database
+
+resource "aws_glue_catalog_database" "s3-rawdata-catalog01" {
+  name = "s3-rawdata-catalog01"
+ 
+}
+
+#create glue_crawler S3
+
+resource "aws_glue_crawler" "s3-raw-glue-crawler01" {
+  database_name = aws_glue_catalog_database.s3-rawdata-catalog01.name
+  name          = "s3-raw-glue-crawler01"
+  schedule      = "cron(/2 * * * ? *)"
+  role          =  aws_iam_role.s3-crawler-role01.arn
+ #table_prefix =  "raw_data_catalog_tb"
+
+   s3_target {
+    path = "s3://project01-data-bucket/rds-raw-data"
+    connection_name = aws_glue_connection.s3-glue-connection01.name
+  }
 }
 
 #create rds-s3-rawdata-job
