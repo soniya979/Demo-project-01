@@ -95,8 +95,8 @@ resource "aws_iam_role_policy" "s3-full-access-policy" {
 }
 
 
-resource "aws_iam_role" "demo-redshift_role" {
-  name = "demo-redshift_role"
+resource "aws_iam_role" "demo-redshift-role" {
+  name = "demo-redshift-role"
  
 assume_role_policy = jsonencode({
 
