@@ -1,3 +1,5 @@
+# ========================= AWS-Glue role==================
+
 #create iam_role for aws glue-RDS-S3
 
 resource "aws_iam_role" "s3-crawler-role01" {
@@ -73,7 +75,7 @@ resource "aws_iam_role_policy_attachment" "rds-service-role-attachment01" {
   policy_arn = data.aws_iam_policy.AmazonRDSFullAccess.arn
 }
 
-# Redshit -IAM role
+# ================================= Redshift Cluster- IAM role ===================
 
 
 #create redshift-customize role with s3 readonly access permission.
@@ -206,7 +208,7 @@ resource "aws_iam_role_policy" "emr-role-policy" {
 })
 }
 
-  #EMR-i EC2 nstance profile role
+  #EMR- EC2 instance profile role
   
   resource "aws_iam_role" "demo-emr-ec2-profile-role" {
   name = "demo-emr-ec2-profile-role"
