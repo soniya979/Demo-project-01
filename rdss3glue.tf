@@ -81,7 +81,7 @@ resource "aws_glue_crawler" "s3-raw-glue-crawler01" {
 
 resource "aws_glue_job" "rds-s3-raw-data-glue-job" {
   name     = "rds-s3-raw-data-glue-job"
-  connections = [aws_glue_connection.rds-glue-connection01.id]
+  connections = [aws_glue_connection.rds-glue-connection01.id, aws_glue_connection.s3-glue-connection01.id]
   role_arn = aws_iam_role.s3-crawler-role01.arn
 
   command {
