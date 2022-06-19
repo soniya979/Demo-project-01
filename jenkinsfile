@@ -15,23 +15,26 @@ pipeline {
              // sh 'terraform init --migrate-state'
              sh 'terraform init'
              
+          sh 'terraform import aws_glue_job.my_job_resource testjob'
+           sh 'terraform show'
+             
                 }
             }
             
-            stage('plan') {
-                steps {
-
-                    sh 'terraform plan'
-                }
-            }
-
-             stage('action') {
-                steps {
-                    echo "Terraform action is -->${action}"
-
-                    sh 'terraform ${action} --auto-approve'
-                }
-            }
+            //stage('plan') {
+             //   steps {
+//
+             //       sh 'terraform plan'
+             //   }
+           // }
+//
+          //   stage('action') {
+           //     steps {
+           //         echo "Terraform action is -->${action}"
+//
+            //        sh 'terraform ${action} --auto-approve'
+            //    }
+          //  }
 
             }
         }
