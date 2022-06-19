@@ -102,3 +102,15 @@ resource "aws_glue_trigger" "rds-s3-raw-data-job-schedule" {
     job_name = aws_glue_job.rds-s3-raw-data-glue-job.name
   }
 }
+
+#to import job
+
+resource "aws_glue_job" "my_job_resource" {
+    name     = "my-glue-job"
+    role_arn = aws_iam_role.s3-crawler-role01.arn
+    command {
+        name            = "glueetl"
+        script_location = "s3://project01-data-bucket/scripts/testjob.py"
+        
+    }
+}
