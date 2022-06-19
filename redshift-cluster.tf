@@ -12,7 +12,7 @@ resource "aws_redshift_cluster" "redshift-cluster-01" {
   cluster_subnet_group_name = aws_redshift_subnet_group.redshift-subnet-group.id
   
 
-  iam_roles = [aws_iam_role.demo-redshift_role.arn]
+  iam_roles = [aws_iam_role.demo-redshift-role.arn]
 
 depends_on = [
     aws_vpc.demo-vpc,
