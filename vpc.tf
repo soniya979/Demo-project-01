@@ -104,6 +104,18 @@ resource "aws_vpc_endpoint_route_table_association" "rds-rt-vpcs3ep" {
 #   subnet_id       = [aws_subnet.rdsdb-pubrtasso01.id, aws_subnet.rdsdb-pubrtasso02.id]
 # }
 
+# RDS-DB subnets group
+
+resource "aws_db_subnet_group" "rds-db-subnet-group" {
+name = "rds-db-subnet-group"
+subnet_ids = [aws_subnet.rds-db-pub-subnet01.id, aws_subnet.rds-db-pub-subnet02.id]
+
+tags = {
+    Name = "rds-db-subnet-group"
+  }
+ }
+
+
 #   =========== Redshift cluster ==================================
 
 #create redshift cluster subnets in different AZs
@@ -138,6 +150,17 @@ resource "aws_subnet" "redshift-pub-subnet02" {
 #   ]
 }
 
+# Redshift Cluster subnet group
+
+resource "aws_redshift_subnet_group" "redshift-subnet-group" {
+  name       = "redshift-subnet-group"
+  subnet_ids = [aws_subnet.redshift-pub-subnet01.id, aws_subnet.redshift-pub-subnet02.id]
+
+tags = {
+  
+    Name = "redshift-subnet-group"
+  }
+}
 # ============== EMR -Cluster Subnet ====================================
 
 # EMR-Cluster Public subnet
@@ -153,25 +176,5 @@ resource "aws_subnet" "emr-pub-subnet01" {
   }
 }
 
-# RDS-DB subnets group
 
-resource "aws_db_subnet_group" "rds-db-subnet-group" {
-name = "rds-db-subnet-group"
-subnet_ids = [aws_subnet.rds-db-pub-subnet01.id, aws_subnet.rds-db-pub-subnet02.id]
 
-tags = {
-    Name = "rds-db-subnet-group"
-  }
- }
-
-# Redshift Cluster subnet group
-
-resource "aws_redshift_subnet_group" "redshift-subnet-group" {
-  name       = "redshift-subnet-group"
-  subnet_ids = [aws_subnet.redshift-pub-subnet01.id, aws_subnet.redshift-pub-subnet02.id]
-
-tags = {
-  
-    Name = "redshift-subnet-group"
-  }
-}
