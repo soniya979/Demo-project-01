@@ -136,10 +136,10 @@ resource "aws_iam_role" "emr-role" {
        Principal = {
        Service = "elasticmapreduce.amazonaws.com" 
       }
-    },
-  ]
-})
-
+       },
+     ]
+  })
+}
 resource "aws_iam_role_policy" "emr-role-policy" {
   name = "emr-role-policy"
   role = aws_iam_role.emr-role.id
