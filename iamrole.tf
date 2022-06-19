@@ -205,3 +205,64 @@ resource "aws_iam_role_policy" "emr-role-policy" {
     }]
 })
 }
+
+  #EMR-i EC2 nstance profile role
+  
+  resource "aws_iam_role" "demo-emr-ec2-profile-role" {
+  name = "demo-emr-ec2-profile-role"
+
+  assume_role_policy = jsonencode({
+   Version = "2008-10-17"
+   Statement = [
+    {
+       Sid = ""
+       Effect = "Allow"
+       Action = "sts:AssumeRole"
+       Principal = {
+        Service = "ec2.amazonaws.com"
+      },
+      
+    }
+  ]
+})
+
+}
+
+  
+resource "aws_iam_role_policy" "demo-emr-instance-profile-policy" {
+  name = "demo-emr-instance-profile"
+  role = aws_iam_role.demo-emr-ec2-profile-role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+         Effect = "Allow",
+         Resource = "*",
+         Action = [
+            "cloudwatch:*",
+            "dynamodb:*",
+            "ec2:Describe*",
+            "elasticmapreduce:Describe*",
+            "elasticmapreduce:ListBootstrapActions",
+            "elasticmapreduce:ListClusters",
+            "elasticmapreduce:ListInstanceGroups",
+            "elasticmapreduce:ListInstances",
+            "elasticmapreduce:ListSteps",
+            "kinesis:CreateStream",
+            "kinesis:DeleteStream",
+            "kinesis:DescribeStream",
+            "kinesis:GetRecords",
+            "kinesis:GetShardIterator",
+            "kinesis:MergeShards",
+            "kinesis:PutRecord",
+            "kinesis:SplitShard",
+            "rds:Describe*",
+            "s3:*",
+            "sdb:*",
+            "sns:*",
+            "sqs:*"
+        ]
+    }]
+})
+}  
+  
