@@ -108,6 +108,14 @@ resource "aws_security_group" "emr-sg01" {
    tags = {
     Name = "emr-sg01"
   }
+    
+     # Allow SSH traffic from VPN
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   depends_on = [aws_subnet.emr-pub-subnet01]
 
