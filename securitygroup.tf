@@ -98,6 +98,7 @@ resource "aws_security_group" "emr-sg01" {
     protocol    = "-1"
     cidr_blocks = [aws_vpc.demo-vpc.cidr_block]
   }
+    
 
   egress {
     from_port   = 0
@@ -117,6 +118,13 @@ resource "aws_security_group" "emr-sg01" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+    egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+    
   depends_on = [aws_subnet.emr-pub-subnet01]
 
   lifecycle {
