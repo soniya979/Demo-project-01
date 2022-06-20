@@ -22,9 +22,10 @@ resource "aws_emr_cluster" "demo-emr-cluster" {
     instance_type = "m5.xlarge"
   }
 
-
+}
 
 resource "aws_iam_instance_profile" "demo-emr-instance-profile" {
   name = "demo-emr-instance-profile"
   role = aws_iam_role.demo-emr-ec2-profile-role.name
 }
+
