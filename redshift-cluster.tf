@@ -9,7 +9,7 @@ resource "aws_redshift_cluster" "redshift-cluster-01" {
   master_password    = "Demo$12345"
   node_type          = "dc2.large"
   cluster_type       = "single-node"
-  cluster_subnet_group_name = aws_redshift_subnet_group.redshift-subnet-group.id
+  cluster_subnet_group_name = aws_redshift_subnet_group.redshift-subnet-group01.id
   
 
   iam_roles = [aws_iam_role.demo-redshift-role.arn]
@@ -17,7 +17,7 @@ resource "aws_redshift_cluster" "redshift-cluster-01" {
 depends_on = [
     aws_vpc.demo-vpc,
     aws_security_group.redshift-sg01,
-    aws_redshift_subnet_group.redshift-subnet-group,
+    aws_redshift_subnet_group.redshift-subnet-group01,
     aws_iam_role.demo-redshift-role
   ]
 }
