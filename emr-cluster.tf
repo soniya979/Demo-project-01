@@ -13,7 +13,7 @@ resource "aws_emr_cluster" "demo-emr-cluster" {
     key_name 			      = "emrec2key"
     subnet_id                         = aws_subnet.emr-pub-subnet01.id
     emr_managed_master_security_group = aws_security_group.emr-sg01.id
-#   emr_managed_slave_security_group  = aws_security_group.emr-sg01.id
+    emr_managed_slave_security_group  = aws_security_group.emr-sg01.id
     
   }
 
