@@ -11,7 +11,7 @@ resource "aws_emr_cluster" "demo-emr-cluster" {
   ec2_attributes {
     instance_profile                  = aws_iam_instance_profile.demo-emr-instance-profile.arn
     key_name 			      = "emrec2key"
-    subnet_id                         = aws_subnet.emr-subnet.id
+    subnet_id                         = aws_subnet.emr-pub-subnet01.id
     emr_managed_master_security_group = aws_security_group.emr-sg01.id
 #   emr_managed_slave_security_group  = aws_security_group.emr-sg01.id
     
