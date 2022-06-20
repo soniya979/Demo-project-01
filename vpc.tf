@@ -152,8 +152,8 @@ resource "aws_subnet" "redshift-pub-subnet02" {
 
 # Redshift Cluster subnet group
 
-resource "aws_redshift_subnet_group" "redshift-subnet-group" {
-  name       = "redshift-subnet-group"
+resource "aws_redshift_subnet_group" "redshift-subnet-group01" {
+  name       = "redshift-subnet-group01"
   subnet_ids = [aws_subnet.redshift-pub-subnet01.id, aws_subnet.redshift-pub-subnet02.id]
 
 tags = {
