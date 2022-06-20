@@ -29,3 +29,8 @@ resource "aws_iam_instance_profile" "demo-emr-instance-profile" {
   role = aws_iam_role.demo-emr-ec2-profile-role.name
 }
 
+#steps for spark application
+
+# name               =  "spark-step"
+# action_on_failure  = "CANCEL_AND_WAIT"
+# hadoop_jar_step    = 
